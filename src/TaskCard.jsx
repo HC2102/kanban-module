@@ -47,7 +47,7 @@ const TaskHeading = styled.div`
 `;
 
 
-function testButton(){
+function testButton() {
   alert("test");
 }
 const TaskCard = ({ item, index }) => {
@@ -62,13 +62,14 @@ const TaskCard = ({ item, index }) => {
         >
           <TaskInformation>
             <TaskHeading>
-            <p>{item.Task}</p>
-            <MoreHorizIcon onClick={testButton}/>
+              <p>{item.cardTitle}</p>
+              <MoreHorizIcon onClick={testButton} />
             </TaskHeading>
             <div className="secondary-details">
               <p>
-                {item.Tags.map(element => {
-                  return (<Tag key={item.Tags.name} style={{ backgroundColor: element.color }}>{element.name}</Tag>)
+                {item.labels?.map(element => {
+                  console.log(item);
+                  return (<Tag key={item.labels.name} style={{ backgroundColor: element.color }}>{element.name}</Tag>)
                 })}
               </p>
             </div>

@@ -44,15 +44,17 @@ display: flex;
 justify-content: space-between;
 `;
 const Kanban = () => {
-  let [columns, setColumns] = useState(columnsFromBackend);
+  let [columns, setColumns] = useState(columnsFromBackend); 
 
+  //https://mocki.io/v1/284745a5-3443-4340-a08d-112e88c970ae
+  // http://localhost:8080/api/v1/note/kanban/data?boardId=1
   //insert data
   useEffect(() => {
     const getData = async () => {
-      fetch('https://jsonplaceholder.typicode.com/todos/1')
+      fetch('http://localhost:8080/api/v1/note/kanban/data?boardId=1')
         .then(response => response.json())
-        .then(json => console.log(json))
-    };
+        .then(json => setColumns(json));
+    };  
     getData();
   }, []);
 
@@ -127,7 +129,7 @@ const Kanban = () => {
                       >
                         <ColumnHeading>
                           <Title>{column.title}</Title>
-                          <DeleteIcon />
+                          <DeleteIcon fontSize="small" />
                         </ColumnHeading>
                         {column.items.map((item, index) => (
                           <TaskCard key={item.id} item={item} index={index} />
