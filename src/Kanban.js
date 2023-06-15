@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { columnsFromBackend } from './init-data';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TaskCard from './TaskCard';
@@ -43,8 +42,15 @@ const ColumnHeading = styled.div`
 display: flex;
 justify-content: space-between;
 `;
+
+const init = {
+  column1: {
+    title: "To-do",
+    items: [],
+  }
+}
 const Kanban = () => {
-  let [columns, setColumns] = useState(columnsFromBackend); 
+  let [columns, setColumns] = useState(init);
 
   //https://mocki.io/v1/284745a5-3443-4340-a08d-112e88c970ae
   // http://localhost:8080/api/v1/note/kanban/data?boardId=1
@@ -54,7 +60,7 @@ const Kanban = () => {
       fetch('http://localhost:8080/api/v1/note/kanban/data?boardId=1')
         .then(response => response.json())
         .then(json => setColumns(json));
-    };  
+    };
     getData();
   }, []);
 

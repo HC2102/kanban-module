@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { columnsFromBackend } from "./init-data";
 
 export const  Button= styled.button`
 background-color: white;
@@ -23,5 +22,4 @@ export default function AddColumn(){
 }
 function test(){
     alert("button pressed");
-    console.log(columnsFromBackend);
 }
