@@ -44,7 +44,7 @@ justify-content: space-between;
 `;
 
 const init = {
-  column1: {
+  "0": {
     title: "To-do",
     items: [],
   }
@@ -57,7 +57,9 @@ const Kanban = () => {
   //insert data
   useEffect(() => {
     const getData = async () => {
-      fetch('http://localhost:8080/api/v1/note/kanban/data?boardId=1')
+      fetch('http://localhost:8080/api/v1/note/kanban/data?boardId=1', {
+        method: "GET"
+      })
         .then(response => response.json())
         .then(json => setColumns(json));
     };
@@ -67,17 +69,16 @@ const Kanban = () => {
   //save data to database every time the board from front end changed
   useEffect(() => {
     async function saveData() {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: "POST",
-        headers: { 'Content-Type': "application/json" },
+       fetch('http://localhost:8080/api/v1/note/kanban/data?boardId=1', {
+        method: "Post",
+        headers:{"Content-Type": "application/json"},
         body: JSON.stringify(columns)
-      });
-      // columns = await response.json();
-      console.log(columns);
+      }).then(response => response.json())
+      .then(response => console.log(response)).catch(err => console.log(err));
     }
     saveData();
   }, [columns]) // will call when the columns (data) has been changed
-
+ 
   //handle the action when user drag item
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;

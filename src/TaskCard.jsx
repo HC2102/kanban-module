@@ -52,7 +52,7 @@ function testButton() {
 }
 const TaskCard = ({ item, index }) => {
   return (
-    <Draggable key={item.id} draggableId={item.id} index={index}>
+    <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
       {(provided) => (
         <div
           key={item.id}
@@ -68,7 +68,6 @@ const TaskCard = ({ item, index }) => {
             <div className="secondary-details">
               <p>
                 {item.labels?.map(element => {
-                  console.log(item);
                   return (<Tag key={item.labels.name} style={{ backgroundColor: element.color }}>{element.name}</Tag>)
                 })}
               </p>
